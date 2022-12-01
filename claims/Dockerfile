@@ -8,10 +8,10 @@ RUN mvn -f /tmp/pom.xml clean package
 #maintainer
 MAINTAINER Claims-team
 #FROM tomcat:latest
-FROM tomcat:8.5-jdk17-corretto
+FROM tomcat:8.5-jdk11-corretto
 RUN rm -rf /usr/local/tomcat/conf/server.xml
 #copy access-infinity to docker image from builder image
 RUN cp -R /usr/local/tomcat/webapps.dist/* /usr/local/tomcat/webapps/
 COPY --from=maven_build /tmp/target/claims-api-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
-EXPOSE 9000
+EXPOSE 8080
 CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
